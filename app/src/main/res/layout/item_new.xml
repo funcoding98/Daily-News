@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -25,7 +24,6 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/titleTextView"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:src="@drawable/common_google_signin_btn_text_dark" />
 
@@ -35,7 +33,8 @@
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="imageViewNews"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageViewNews"
                 tools:text="Title" />
 
             <TextView
@@ -47,6 +46,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/titleTextView"
                 tools:text="On Monday afternoon, stock market suddenly rised due to drop in tarrif Rate" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>

@@ -28,7 +28,6 @@ class NewsAdapter(private var newsList: List<NewsItem>) :
 
     override fun getItemCount(): Int = newsList.size
 
-    // ✅ Add this to allow updating data
     fun updateList(newList: List<NewsItem>) {
         newsList = newList
         notifyDataSetChanged()
