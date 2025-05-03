@@ -1,4 +1,5 @@
 package com.daily.news.adapter
+
 import android.view.LayoutInflater
 import androidx.recyclerview.widget.RecyclerView
 import com.daily.news.model.NewsItem
