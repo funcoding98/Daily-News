@@ -23,13 +23,17 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".view.AdminPage"
+            android:exported="false">
+
+        </activity>
         <!-- DashboardActivity: Receives the deep link -->
         <activity
             android:name=".view.DashboardActivity"
             android:exported="false">
 
         </activity>
-
 
 
         <activity

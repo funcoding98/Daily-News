@@ -9,7 +9,7 @@ android {
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.daily.news"
+        applicationId = "com.daily.news1"
         minSdk = 28
         targetSdk = 35
         versionCode = 1
@@ -58,6 +58,7 @@ dependencies {
     implementation(libs.androidx.viewpager2)
 
     implementation(libs.lifecycle.viewmodel.ktx)
+    implementation(libs.firebase.database.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

@@ -28,7 +28,7 @@ class SplashActivity : AppCompatActivity() {
 
     suspend fun nextActvity() {
         delay(2000)
-        startActivity(Intent(this, DashboardActivity::class.java))
+        startActivity(Intent(this, AdminPage::class.java))
         finish()
 
     }
