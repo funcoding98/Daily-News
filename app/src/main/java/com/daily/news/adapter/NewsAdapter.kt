@@ -6,8 +6,9 @@ import com.daily.news.model.NewsItem
 // Imports needed
 import android.view.ViewGroup
 import com.daily.news.databinding.ItemNewBinding
+import com.daily.news.interfaces.NewsInterface
 
-class NewsAdapter(private var newsList: List<NewsItem>) :
+class NewsAdapter(private var newsList: List<NewsItem>,private var newsInterface: NewsInterface) :
     RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
 
     inner class NewsViewHolder(val binding: ItemNewBinding) :
@@ -23,6 +24,9 @@ class NewsAdapter(private var newsList: List<NewsItem>) :
         holder.binding.apply {
             titleTextView.text = newsItem.title
             descriptionTextView.text = newsItem.description
+            shareBtn.setOnClickListener {
+                newsInterface.onShareButtonClick(shareId = position, newsData = newsItem)
+            }
         }
     }
 

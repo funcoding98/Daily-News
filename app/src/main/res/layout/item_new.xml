@@ -3,53 +3,68 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        app:cardCornerRadius="3dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            >
+            android:layout_marginBottom="30dp">
 
             <ImageView
                 android:id="@+id/imageViewNews"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_height="200dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/terror"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                android:scaleType="fitXY"
-                app:layout_constraintTop_toTopOf="parent"
-                android:src="@drawable/terror" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/titleTextView"
-                android:layout_width="0dp"
-                android:padding="16dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
+                android:padding="16dp"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageViewNews"
-                tools:text="Title" />
+                tools:text="News Heading" />
 
             <TextView
                 android:id="@+id/descriptionTextView"
                 android:layout_width="0dp"
-                android:padding="16dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:padding="16dp"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toTopOf="@+id/shareBtn"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/titleTextView"
-                tools:text="On Monday afternoon, stock market suddenly rised due to drop in tarrif Rate" />
+                tools:text="Monday afternoon, stock market suddenly rised due to drop in tarrif RateOn Monday afternoon, stock market suddenly rised due to drop in tarrif RateOn Monday afternoon, stock market suddenly rised due to drop in tarrif RateOn Monday afternoon, stock market suddenly rised due to drop in tarrif RateOn Monday afternoon, stock market suddenly rised due to drop in tarrif RateOn Monday afternoon, stock market suddenly rised due to drop in tarrif RateOn Monday afternoon, stock market suddenly rised due to drop in tarrif RateOn Monday afternoon, stock market suddenly rised due to drop in tarrif RateOn Monday afternoon, stock market suddenly rised due to drop in tarrif Rate" />
 
+            <ImageView
+                android:id="@+id/shareBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginEnd="16dp"
+                android:paddingBottom="16dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_share"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/descriptionTextView" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
