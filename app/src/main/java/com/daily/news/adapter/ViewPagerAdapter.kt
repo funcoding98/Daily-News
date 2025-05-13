@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.daily.news.view.FeedsFragment
+import com.daily.news.view.NewsFragment
 
 class ViewPagerAdapter(fragmentActivity: FragmentActivity) : FragmentStateAdapter(fragmentActivity) {
     override fun getItemCount(): Int = 3
@@ -12,7 +13,8 @@ class ViewPagerAdapter(fragmentActivity: FragmentActivity) : FragmentStateAdapte
     override fun createFragment(position: Int): Fragment {
         return when (position) {
             0 -> FeedsFragment()
-           // 1 -> NewsFragment()
+           1 -> NewsFragment()
+           2 -> NewsFragment()
             else -> FeedsFragment()
         }
     }

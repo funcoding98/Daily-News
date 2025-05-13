@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
 
     <application
         android:allowBackup="true"
@@ -23,11 +26,16 @@
             </intent-filter>
         </activity>
 
-        <!-- DashboardActivity: Receives the deep link -->
         <activity
             android:name=".view.DashboardActivity"
-            android:exported="false">
-
+            android:exported="true">
+            <intent-filter android:label="Deep Link Handler">
+                <!-- Deep link scheme: demoapp://feeds -->
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="demoapp" android:host="feeds" />
+            </intent-filter>
         </activity>
 
 

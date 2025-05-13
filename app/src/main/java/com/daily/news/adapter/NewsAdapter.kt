@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.daily.news.model.NewsItem
 // Imports needed
 import android.view.ViewGroup
+import com.bumptech.glide.Glide
 import com.daily.news.databinding.ItemNewBinding
 import com.daily.news.interfaces.NewsInterface
 
@@ -23,7 +24,10 @@ class NewsAdapter(private var newsList: List<NewsItem>,private var newsInterface
         val newsItem = newsList[position]
         holder.binding.apply {
             titleTextView.text = newsItem.title
-            descriptionTextView.text = newsItem.description
+            descriptionTextView.text = newsItem.content
+       /*     Glide.with(holder.itemView.context)
+                .load(newsItem.image)
+                .into(imageViewNews)*/
             shareBtn.setOnClickListener {
                 newsInterface.onShareButtonClick(shareId = position, newsData = newsItem)
             }

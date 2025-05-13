@@ -1,7 +1,11 @@
 package com.daily.news.view
 
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
+import androidx.activity.R
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -18,8 +22,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 
 class DashboardActivity : AppCompatActivity(), NewsInterface {
     private lateinit var binding: ActivityDashboardBinding
-    private val viewModel: NewsViewModel by viewModels()
-    private lateinit var adapter: NewsAdapter
+
     private lateinit var tabLayout: TabLayout
     private lateinit var viewPager: ViewPager2
 
@@ -38,21 +41,19 @@ class DashboardActivity : AppCompatActivity(), NewsInterface {
         }
         viewPager = binding.viewPager
         tabLayout = binding.tabLayout
-viewpagerAdapter()
+        handleDeepLink(intent)
+        viewpagerAdapter()
 
-       // adapter = NewsAdapter(emptyList(), this)
-     /*   binding.recyclerview.layoutManager = LinearLayoutManager(this)
-        binding.recyclerview.isNestedScrollingEnabled = true
-        binding.recyclerview.adapter = adapter*/
 
-  /*      lifecycleScope.launchWhenStarted {
-            viewModel.newsList.collectLatest { newsList ->
-                adapter.updateList(newsList)
-            }
-        }*/
     }
 
-    fun viewpagerAdapter(){
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        handleDeepLink(intent)
+    }
+
+
+    fun viewpagerAdapter() {
         val adapter = ViewPagerAdapter(this)
         viewPager.adapter = adapter
 
@@ -61,17 +62,15 @@ viewpagerAdapter()
         }.attach()
     }
 
+    private fun handleDeepLink(intent: Intent?) {
+        val data = intent?.data ?: return
+        if (data.scheme == "demoapp" && data.host == "feeds") {
+            val newsId = data.getQueryParameter("newsId")
+            // Feeds tab is at position 0
+            val viewPager = binding.viewPager
+            viewPager.setCurrentItem(0, false)
 
-
- /*   override fun onShareButtonClick(shareId: Int, newsData: NewsItem) {
-        val sendIntent = Intent().apply {
-            action = Intent.ACTION_SEND
-            putExtra(Intent.EXTRA_TEXT, "${newsData.title} \n --link-- \n -via ")
-            type = "text/plain"
         }
-        val shareIntent = Intent.createChooser(sendIntent, "Share this news via")
-        startActivity(shareIntent)
-    }*/
 
-
+    }
 }
