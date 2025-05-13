@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.daily.news1" />
+                  <option name="mobileSdkAppId" value="1:379515838741:android:8b00e2dfc170a3d8bf891c" />
+                  <option name="projectId" value="x7-news-db24e" />
+                  <option name="projectNumber" value="379515838741" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />
