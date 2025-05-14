@@ -1,6 +1,7 @@
 package com.daily.news.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,7 @@ import androidx.fragment.app.Fragment
 import com.daily.news.databinding.FragmentNewsBinding
 import com.daily.news.model.NewsItem
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.messaging.FirebaseMessaging
 
 class NewsFragment : Fragment() {
     private lateinit var binding: FragmentNewsBinding
@@ -30,6 +32,7 @@ class NewsFragment : Fragment() {
             uploadNewsData()
         }
     }
+
     private fun uploadNewsData() {
         val title = binding.titleEditText.text.toString()
         val content = binding.contentEditText.text.toString()
@@ -66,12 +69,28 @@ class NewsFragment : Fragment() {
                         clearForm()
                     }
                     .addOnFailureListener {
-                        Toast.makeText(requireContext(), "Failed to post news", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), "Failed to post news", Toast.LENGTH_SHORT)
+                            .show()
                     }
             }
             .addOnFailureListener {
-                Toast.makeText(requireContext(), "Failed to read from Firestore", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    requireContext(),
+                    "Failed to read from Firestore",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
+    }
+
+    private fun sendPushNotification() {
+        FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                val token = task.result
+                Log.d("FCM Token", token)
+                Toast.makeText(requireContext(), "FCM Token: $token", Toast.LENGTH_SHORT).show()
+            }
+        }
+
     }
 
     /*

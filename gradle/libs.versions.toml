@@ -42,6 +42,8 @@ firebase-database = { module = "com.google.firebase:firebase-database-ktx" }
 glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
 glide-compiler = { group = "com.github.bumptech.glide", name = "compiler", version.ref = "glide" }
 firebase-storage = { module = "com.google.firebase:firebase-storage-ktx" }
+firebase-messaging = { module = "com.google.firebase:firebase-messaging", version = "24.0.0" }
+
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

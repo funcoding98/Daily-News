@@ -28,7 +28,7 @@ android {
         }
     }
     buildFeatures {
-        viewBinding{
+        viewBinding {
             enable = true
         }
     }
@@ -65,4 +65,8 @@ dependencies {
     implementation(libs.firebase.storage)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    implementation(libs.firebase.messaging) // toml se
 }
+
+apply(plugin = "com.google.gms.google-services")

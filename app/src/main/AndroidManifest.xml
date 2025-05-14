@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
@@ -16,6 +17,13 @@
         android:theme="@style/Theme._24x7News"
         tools:targetApi="31">
 
+        <service
+            android:name=".service.MyFirebaseMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
         <!-- SplashActivity: Main entry point of the app -->
         <activity
             android:name=".view.SplashActivity"
@@ -32,16 +40,20 @@
             <intent-filter android:label="Deep Link Handler">
                 <!-- Deep link scheme: demoapp://feeds -->
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="demoapp" android:host="feeds" />
+
+                <data
+                    android:host="feeds"
+                    android:scheme="demoapp" />
             </intent-filter>
         </activity>
-
 
 
         <activity
             android:name=".MainActivity"
             android:exported="false" />
     </application>
+
 </manifest>
