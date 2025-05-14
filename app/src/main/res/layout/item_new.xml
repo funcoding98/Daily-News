@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_margin="5dp"
         app:cardCornerRadius="3dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -18,6 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="30dp">
 
+            <!-- Image -->
             <ImageView
                 android:id="@+id/imageViewNews"
                 android:layout_width="0dp"
@@ -28,6 +29,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <!-- Title -->
             <TextView
                 android:id="@+id/titleTextView"
                 android:layout_width="wrap_content"
@@ -39,6 +41,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/imageViewNews"
                 tools:text="News Heading" />
 
+            <!-- Description -->
             <TextView
                 android:id="@+id/descriptionTextView"
                 android:layout_width="0dp"
@@ -50,8 +53,27 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/titleTextView"
-                tools:text="Monday afternoon, stock market suddenly rised due to drop in tarrif RateOn Monday afternoon, stock market suddenly rised due to drop in tarrif RateOn Monday afternoon, stock market suddenly rised due to drop in tarrif RateOn Monday afternoon, stock market suddenly rised due to drop in tarrif RateOn Monday afternoon, stock market suddenly rised due to drop in tarrif RateOn Monday afternoon, stock market suddenly rised due to drop in tarrif RateOn Monday afternoon, stock market suddenly rised due to drop in tarrif RateOn Monday afternoon, stock market suddenly rised due to drop in tarrif RateOn Monday afternoon, stock market suddenly rised due to drop in tarrif Rate" />
+                tools:text="Monday afternoon, stock market suddenly rised due to drop in tariff Rate..." />
 
+            <!-- Expandable Content -->
+            <LinearLayout
+                android:id="@+id/expandableContent"
+                android:visibility="gone"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/descriptionTextView"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <!-- Detailed content of the news -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Detailed content of the news" />
+            </LinearLayout>
+
+            <!-- Share Button -->
             <ImageView
                 android:id="@+id/shareBtn"
                 android:layout_width="wrap_content"
@@ -62,9 +84,9 @@
                 android:src="@drawable/ic_share"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/descriptionTextView" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

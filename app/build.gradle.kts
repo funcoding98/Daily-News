@@ -67,6 +67,8 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
 
     implementation(libs.firebase.messaging) // toml se
+    implementation(libs.lifecycle.livedata.ktx)
+
 }
 
 apply(plugin = "com.google.gms.google-services")

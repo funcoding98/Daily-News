@@ -1,15 +1,14 @@
 package com.daily.news.adapter
 
 import android.view.LayoutInflater
-import androidx.recyclerview.widget.RecyclerView
-import com.daily.news.model.NewsItem
-// Imports needed
 import android.view.ViewGroup
-import com.bumptech.glide.Glide
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.RecyclerView
 import com.daily.news.databinding.ItemNewBinding
 import com.daily.news.interfaces.NewsInterface
+import com.daily.news.model.NewsItem
 
-class NewsAdapter(private var newsList: List<NewsItem>,private var newsInterface: NewsInterface) :
+class NewsAdapter(private var newsList: List<NewsItem>, private var newsInterface: NewsInterface) :
     RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
 
     inner class NewsViewHolder(val binding: ItemNewBinding) :
@@ -25,11 +24,13 @@ class NewsAdapter(private var newsList: List<NewsItem>,private var newsInterface
         holder.binding.apply {
             titleTextView.text = newsItem.title
             descriptionTextView.text = newsItem.content
-       /*     Glide.with(holder.itemView.context)
-                .load(newsItem.image)
-                .into(imageViewNews)*/
+            // Assuming Glide is being used for loading images (uncomment if needed)
+            // Glide.with(holder.itemView.context)
+            //     .load(newsItem.image)
+            //     .into(imageViewNews)
+
             shareBtn.setOnClickListener {
-                newsInterface.onShareButtonClick(shareId = position, newsData = newsItem)
+                newsInterface.onShareButtonClick(newsItem.news_id ?: "", newsItem)
             }
         }
     }
@@ -37,7 +38,23 @@ class NewsAdapter(private var newsList: List<NewsItem>,private var newsInterface
     override fun getItemCount(): Int = newsList.size
 
     fun updateList(newList: List<NewsItem>) {
+        val diffCallback = NewsDiffCallback(newsList, newList)
+        val diffResult = DiffUtil.calculateDiff(diffCallback)
         newsList = newList
-        notifyDataSetChanged()
+        diffResult.dispatchUpdatesTo(this)
+    }
+}
+
+class NewsDiffCallback(
+    private val oldList: List<NewsItem>,
+    private val newList: List<NewsItem>
+) : DiffUtil.Callback() {
+    override fun getOldListSize(): Int = oldList.size
+    override fun getNewListSize(): Int = newList.size
+    override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+        return oldList[oldItemPosition].news_id == newList[newItemPosition].news_id
+    }
+    override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+        return oldList[oldItemPosition] == newList[newItemPosition]
     }
 }

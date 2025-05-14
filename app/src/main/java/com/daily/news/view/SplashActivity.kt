@@ -35,7 +35,7 @@ class SplashActivity : AppCompatActivity() {
             if (task.isSuccessful) {
                 val token = task.result
                 Log.d("FCM Token", token)
-                Toast.makeText(this, "FCM Token: $token", Toast.LENGTH_SHORT).show()
+//                Toast.makeText(this, "FCM Token: $token", Toast.LENGTH_SHORT).show()
             }
         }
 

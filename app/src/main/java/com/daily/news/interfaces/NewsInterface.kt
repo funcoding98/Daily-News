@@ -4,5 +4,5 @@ import com.daily.news.model.NewsItem
 
 interface NewsInterface {
 
-    fun onShareButtonClick(shareId:Int,newsData: NewsItem){}
+    fun onShareButtonClick(shareId:String?,newsData: NewsItem){}
 }
