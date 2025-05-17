@@ -26,7 +26,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         val action = remoteMessage.data["action"]
         if (action == "open_details") {
             // If action is "open_details", open DetailActivity
-            val intent = Intent(this, FeedsFragment::class.java)
+            val intent = Intent(this, DashboardActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
 
             // Create a PendingIntent

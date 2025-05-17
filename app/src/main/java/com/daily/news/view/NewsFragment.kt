@@ -1,12 +1,24 @@
 package com.daily.news.view
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.daily.news.R
 import com.daily.news.databinding.FragmentNewsBinding
 import com.daily.news.model.NewsItem
 import com.google.firebase.firestore.FirebaseFirestore
@@ -27,10 +39,37 @@ class NewsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        createNotificationChannel()
+        subscribeToNewsTopic()
         binding.postBtn.setOnClickListener {
             uploadNewsData()
         }
+//        createNotificationChannel()
+    }
+
+    private fun subscribeToNewsTopic() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(
+                    requireContext(),
+                    android.Manifest.permission.POST_NOTIFICATIONS
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+                ActivityCompat.requestPermissions(
+                    requireActivity(),
+                    arrayOf(android.Manifest.permission.POST_NOTIFICATIONS),
+                    1001
+                )
+            }
+        }
+
+        FirebaseMessaging.getInstance().subscribeToTopic("news")
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Log.d("FCM", "Subscribed to news topic")
+                } else {
+                    Log.e("FCM", "Failed to subscribe to topic", task.exception)
+                }
+            }
     }
 
     private fun uploadNewsData() {
@@ -66,6 +105,8 @@ class NewsFragment : Fragment() {
                 adailyNewsRef.set(mapOf("news" to currentNewsList))
                     .addOnSuccessListener {
                         Toast.makeText(requireContext(), "News posted", Toast.LENGTH_SHORT).show()
+                        showNotification(title, newsItem["news_id"] as String)
+                        sendPushNotification()
                         clearForm()
                     }
                     .addOnFailureListener {
@@ -82,14 +123,70 @@ class NewsFragment : Fragment() {
             }
     }
 
+    private fun createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channel = NotificationChannel(
+                "news_channel",
+                "News Alerts",
+                NotificationManager.IMPORTANCE_DEFAULT
+            )
+            channel.description = "Channel for news notifications"
+
+            val notificationManager = requireContext().getSystemService(NotificationManager::class.java)
+            notificationManager.createNotificationChannel(channel)
+        }
+    }
+
+    fun showNotification(newsTitle: String, newsId: String) {
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse("demoapp://news?newsId=$newsId"))
+        val pendingIntent = PendingIntent.getActivity(requireContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
+
+        val builder = NotificationCompat.Builder(requireContext(), "news_channel")
+            .setSmallIcon(R.drawable.splashlogo) // your custom icon
+            .setContentTitle("Breaking News")
+            .setContentText(newsTitle)
+            .setContentIntent(pendingIntent)
+            .setAutoCancel(true)
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+
+        with(NotificationManagerCompat.from(requireContext())) {
+            notify(1002, builder.build())
+        }
+    }
+
     private fun sendPushNotification() {
-        FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                val token = task.result
-                Log.d("FCM Token", token)
-                Toast.makeText(requireContext(), "FCM Token: $token", Toast.LENGTH_SHORT).show()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(
+                    requireContext(),
+                    android.Manifest.permission.POST_NOTIFICATIONS
+                )
+                != PackageManager.PERMISSION_GRANTED
+            ) {
+                ActivityCompat.requestPermissions(
+                    requireActivity(),
+                    arrayOf(android.Manifest.permission.POST_NOTIFICATIONS),
+                    1001
+                )
             }
         }
+
+        FirebaseMessaging.getInstance().subscribeToTopic("news")
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Log.d("FCM", "Subscribed to news topic")
+                } else {
+                    Log.e("FCM", "Failed to subscribe to topic", task.exception)
+                }
+            }
+
+
+//        FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
+//            if (task.isSuccessful) {
+//                val token = task.result
+//                Log.d("FCM Token", token)
+//                Toast.makeText(requireContext(), "FCM Token: $token", Toast.LENGTH_SHORT).show()
+//            }
+//        }
 
     }
 

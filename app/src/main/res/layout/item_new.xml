@@ -8,7 +8,6 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="5dp"
         app:cardCornerRadius="3dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -53,7 +52,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/titleTextView"
-                tools:text="Monday afternoon, stock market suddenly rised due to drop in tariff Rate..." />
+                tools:text="Monday afternoon, stock market suddenly rised due to drop in tariff Rate due to tototo totoot ototo tototo tototo ottoott otot toototttttttttttttttttttttttttttttttt otototttttttttttt otoot" />
 
             <!-- Expandable Content -->
             <LinearLayout

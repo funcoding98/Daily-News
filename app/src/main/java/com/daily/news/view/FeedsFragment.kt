@@ -76,7 +76,7 @@ class FeedsFragment : Fragment(), NewsInterface {
 
     private fun shareNews(newsItem: NewsItem) {
         // Create an Intent to share the news content
-        val deepLinkUrl = "demoapp://news?newsId=${newsItem.news_id}"
+        val deepLinkUrl = "https://demoapp://news?newsId=${newsItem.news_id}"
 
         val shareIntent = Intent(Intent.ACTION_SEND).apply {
             type = "text/plain"
@@ -92,7 +92,7 @@ class FeedsFragment : Fragment(), NewsInterface {
         startActivity(Intent.createChooser(shareIntent, "Share via"))
     }
 
-    private fun getCurrentNewsItem(): NewsItem? {
+    private fun getCurrentNewsItem(): NewsItem {
         // Return the current news item to share, you can fetch it from the ViewModel or elsewhere
         return viewModel.newsList.value[0]//viewModel.newsItem.value  // Assuming you are using the live data or state flow
     }
